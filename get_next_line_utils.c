@@ -16,52 +16,52 @@ size_t	ft_strlen(const char *s)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (s[i])
 		i++;
 	return (i);
 }
 
-int	ft_strchr(const char *s, int c)
+char *ft_strchr(const char *s, int c)
 {
-	int	i;
-
-	i = 0;
-	while (s[i])
-	{
-		if ((unsigned char)s[i] == (unsigned char)c)
-			return (i);
-		i++;
-	}
-	return (NULL);
+    if (!s)
+        return (NULL);
+    while (*s)
+    {
+        if (*s == (char)c)
+            return ((char *)s);
+        s++;
+    }
+    return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char    *ft_strjoin(char *s1, const char *s2)
 {
-	size_t			len_s2;
-	size_t			len_s1;
-	char			*new;
-	int				i;
-	int				j;
+    char    *new;
+    int     i = 0;
+    int     j = 0;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char)*1);
-		s1[0] = '\0';
-	}
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	new = malloc(sizeof(char) * (len_s2 + len_s1 + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[j])
-		new[j++] = s1[j];
-	while (s2[i])
-		new[j + i] = s2[i++];
-	new[j] = '\0';
-	return (new);
+    if (!s2)
+        return (s1);
+    if (!s1)
+    {
+        s1 = malloc(1);
+        if (!s1)
+            return (NULL);
+        s1[0] = '\0';
+    }
+    new = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+    if (!new)
+        return (NULL);
+    while (s1[i])
+        new[i] = s1[i++];
+    while (s2[j])
+        new[i + j] = s2[j++];
+    new[i + j] = '\0';
+    free(s1);
+    return (new);
 }
 
 char	*ft_substr(const char *s, unsigned int start)
