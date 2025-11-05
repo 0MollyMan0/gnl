@@ -32,16 +32,20 @@ char	*get_next_line(int fd)
 		free(buffer);
 		if ((i = ft_strchr_i(stash, '\n')) >= 0)
 		{
-			line = extract(stash);
+			line = extract(stash, i);
 			stash = substr(stash, i + 1);
 			return (line);
 		}
 	}
-	else if (i == 0)
+	else if (i == 0 && stash)
 	{
-		return (stash);
+		free(buffer);
+		if (!stash)
+			return NULL;
+		line = stash;
 		free(stash);
-		stash == NULL;
+		stash = NULL;
+		return (line);
 	}
 	return (NULL);
 }
