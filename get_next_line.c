@@ -6,7 +6,7 @@
 /*   By: anfouger <anfouger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:41:39 by anfouger          #+#    #+#             */
-/*   Updated: 2025/11/04 12:11:30 by anfouger         ###   ########.fr       */
+/*   Updated: 2025/11/05 10:42:00 by anfouger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,3 +41,5 @@ char	*get_next_line(int fd)
 	}
 	return (NULL);
 }
+
+static void extract(){}

@@ -6,7 +6,7 @@
 /*   By: anfouger <anfouger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:42:02 by anfouger          #+#    #+#             */
-/*   Updated: 2025/11/04 12:30:28 by anfouger         ###   ########.fr       */
+/*   Updated: 2025/11/05 10:40:16 by anfouger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int	ft_strchr(const char *s, int c)
+int	ft_strchr_i(const char *s, int c)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ int	ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char const *s2)
 {
 	size_t			len_s2;
 	size_t			len_s1;
