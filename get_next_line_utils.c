@@ -6,7 +6,7 @@
 /*   By: anfouger <anfouger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:42:02 by anfouger          #+#    #+#             */
-/*   Updated: 2025/11/05 10:40:16 by anfouger         ###   ########.fr       */
+/*   Updated: 2025/11/05 10:43:35 by anfouger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (s[i])
 		i++;
@@ -24,47 +26,48 @@ size_t	ft_strlen(const char *s)
 
 int	ft_strchr_i(const char *s, int c)
 {
-	int	i;
+    int i;
 
-	i = 0;
-	while (s[i])
-	{
-		if ((unsigned char)s[i] == (unsigned char)c)
-			return (i);
-		i++;
-	}
-	return (NULL);
+    i = 0;
+    if (!s)
+        return (-1);
+    while (s[i])
+    {
+        if (s[i] == c)
+            return (i);
+        i++;
+    }
+    return (-1);
 }
 
 char	*ft_strjoin(char *s1, char const *s2)
 {
-	size_t			len_s2;
-	size_t			len_s1;
-	char			*new;
-	int				i;
-	int				j;
+    char    *new;
+    int     i = 0;
+    int     j = 0;
 
-	if (!s1)
-	{
-		s1 = malloc(sizeof(char)*1);
-		s1[0] = '\0';
-	}
-	len_s1 = ft_strlen(s1);
-	len_s2 = ft_strlen(s2);
-	new = malloc(sizeof(char) * (len_s2 + len_s1 + 1));
-	if (!new)
-		return (NULL);
-	i = 0;
-	j = 0;
-	while (s1[j])
-		new[j++] = s1[j];
-	while (s2[i])
-		new[j + i] = s2[i++];
-	new[j] = '\0';
-	return (new);
+    if (!s2)
+        return (s1);
+    if (!s1)
+    {
+        s1 = malloc(1);
+        if (!s1)
+            return (NULL);
+        s1[0] = '\0';
+    }
+    new = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+    if (!new)
+        return (NULL);
+    while (s1[i])
+        new[i] = s1[i++];
+    while (s2[j])
+        new[i + j] = s2[j++];
+    new[i + j] = '\0';
+    free(s1);
+    return (new);
 }
 
-char	*ft_substr(const char *s, unsigned int start)
+char	*ft_substr(char *s, unsigned int start)
 {
 	size_t	slen;
 	size_t	x;
@@ -78,7 +81,8 @@ char	*ft_substr(const char *s, unsigned int start)
 		return (NULL);
 	x = 0;
 	while (s[start + x])
-		sub[x++] = s[start + x];
+		sub[x] = s[start + x++];
 	sub[x] = '\0';
+    free(s);
 	return (sub);
 }
