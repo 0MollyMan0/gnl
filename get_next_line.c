@@ -6,7 +6,7 @@
 /*   By: anfouger <anfouger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/04 09:41:39 by anfouger          #+#    #+#             */
-/*   Updated: 2025/11/05 10:42:00 by anfouger         ###   ########.fr       */
+/*   Updated: 2025/11/05 10:57:08 by anfouger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_next_line(int fd)
 	i = read(fd, buffer, BUFFER_SIZE);
 	if (i > 0)
 	{
-		buffer[BUFFER_SIZE] = '\0';
+		buffer[i] = '\0';
 		stash = ft_strjoin(stash, buffer);
 		free(buffer);
 		if ((i = ft_strchr_i(stash, '\n')) >= 0)
@@ -38,16 +38,35 @@ char	*get_next_line(int fd)
 		}
 	}
 	else if (i == 0 && stash)
-	{
-		free(buffer);
-		if (!stash)
-			return NULL;
-		line = stash;
-		free(stash);
-		stash = NULL;
-		return (line);
-	}
+		return(eof(buffer, stash));
 	return (NULL);
 }
 
-static void extract(){}
+static char	*eof(char *buffer, char *stash)
+{
+	char *line;
+	
+	free(buffer);
+	if (!stash)
+		return NULL;
+	line = stash;
+	stash = NULL;
+	return (line);
+}
+
+static char	*extract(char *s, int end)
+{
+	size_t	x;
+	char	*sub;
+
+	if (!s)
+		return (NULL);
+	sub = malloc(sizeof(char) * (end + 1));
+	if (!sub)
+		return (NULL);
+	x = 0;
+	while (x < end)
+		sub[x] = s[x++];
+	sub[x] = '\0';
+	return (sub);
+}
