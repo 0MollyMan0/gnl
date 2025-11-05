@@ -14,30 +14,34 @@
 
 char	*get_next_line(int fd)
 {
-	static char *stash;
-	char *buffer;
-	int i;
-	int x;
+	static char	*stash;
+	char		*line;
+	char		*buffer;
+	int			i;
 
-	if (fd < 0 || !buffer || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	buffer = malloc(BUFFER_SIZE + 1);
-	if (read(fd, buffer, BUFFER_SIZE) > 0)
+	if (!buffer)
+		return (NULL);
+	i = read(fd, buffer, BUFFER_SIZE);
+	if (i > 0)
 	{
+		buffer[BUFFER_SIZE] = '\0';
 		stash = ft_strjoin(stash, buffer);
-		if ((i = strchr(stash, '\n')) != NULL)
+		free(buffer);
+		if ((i = ft_strchr_i(stash, '\n')) >= 0)
 		{
-			x = 0;
-			while (x < i + 1)
-				write(1, stash[x++], 1);
-			stash = substr(stash, i);
+			line = extract(stash);
+			stash = substr(stash, i + 1);
+			return (line);
 		}
 	}
-	else if (read(fd, buffer, BUFFER_SIZE) == 0)
+	else if (i == 0)
 	{
-		x = 0;
-		while (stash[x])
-			write(1, stash[x++], 1);
+		return (stash);
+		free(stash);
+		stash == NULL;
 	}
 	return (NULL);
 }

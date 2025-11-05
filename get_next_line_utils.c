@@ -24,17 +24,20 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-char *ft_strchr(const char *s, int c)
+int ft_strchr_i(const char *s, int c)
 {
+    int i;
+
+    i = 0;
     if (!s)
-        return (NULL);
-    while (*s)
+        return (-1);
+    while (s[i])
     {
-        if (*s == (char)c)
-            return ((char *)s);
-        s++;
+        if (s[i] == c)
+            return (i);
+        i++;
     }
-    return (NULL);
+    return (-1);
 }
 
 char    *ft_strjoin(char *s1, const char *s2)
@@ -64,7 +67,7 @@ char    *ft_strjoin(char *s1, const char *s2)
     return (new);
 }
 
-char	*ft_substr(const char *s, unsigned int start)
+char	*ft_substr(char *s, unsigned int start)
 {
 	size_t	slen;
 	size_t	x;
@@ -78,7 +81,8 @@ char	*ft_substr(const char *s, unsigned int start)
 		return (NULL);
 	x = 0;
 	while (s[start + x])
-		sub[x++] = s[start + x];
+		sub[x] = s[start + x++];
 	sub[x] = '\0';
+    free(s);
 	return (sub);
 }
