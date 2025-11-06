@@ -1,5 +1,3 @@
-aaaaaaaaaaaa
-bbbbbbbbbbbbbbbbb
-ccccccccccc
-ddddddddddddddd
-eeeeeeeeeeeeeee
+1. Faire une fonction pour read qui renvoie un truc quand eof, erreur ou find
+2. Faire une fonction qui extract
+3. Faire une fonction qui degage

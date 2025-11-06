@@ -12,48 +12,44 @@
 
 #include "get_next_line.h"
 
-char	*get_next_line(int fd)
+static char	*extract(char *s, int end)
 {
-	static char	*stash;
-	char		*buffer;
-	int			i;
+	int	x;
+	char	*sub;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (!s)
 		return (NULL);
-	buffer = malloc(BUFFER_SIZE + 1);
-	if (!buffer)
+	sub = malloc(end + 2);
+	if (!sub)
+	{
 		return (NULL);
+	}
+	x = 0;
+	while (x <= end)
+	{
+		sub[x] = s[x];
+		x++;
+	}
+	sub[x] = '\0';
+	return (sub);
+}
+static int read_file(char **stash, char *buffer, int fd)
+{
+	int i;
+
 	i = 1;
-	while (ft_strchr_i(stash, '\n') == -1 && i > 0)
+	while (ft_strchr_i(*stash, '\n') == -1 && i > 0)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
 		if (i < 0)
-		{
-			free(buffer);
-			return (NULL);
-		}
+			return (-2);
 		buffer[i] = '\0';
-		stash = ft_strjoin(stash, buffer);
+		*stash = ft_strjoin(*stash, buffer);
 	}
-	if ((i = ft_strchr_i(stash, '\n')) >= 0)
-	{
-		char *line = tg(&stash, i);
-		free(buffer);
-		return (tg(&stash, i));
-	}
-	free(buffer);
-	return(eof(&stash));
+	if ((i = ft_strchr_i(*stash, '\n')) >= 0)
+		return (i);
+	return (-1);
 }
-
-static char	*tg(char **stash, int i)
-{
-	char *line;
-	
-	line = extract(*stash, i);
-	*stash = substr(*stash, i + 1);
-	return (line);
-}
-
 static char	*eof(char **stash)
 {
 	char *line;
@@ -64,20 +60,27 @@ static char	*eof(char **stash)
 	*stash = NULL;
 	return (line);
 }
-
-static char	*extract(char *s, int end)
+char	*get_next_line(int fd)
 {
-	size_t	x;
-	char	*sub;
+	static char	*stash;
+	char		*buffer;
+	char		*line;
+	int			i;
 
-	if (!s)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	sub = malloc(end + 2);
-	if (!sub)
+	buffer = malloc(BUFFER_SIZE + 1);
+	if (!buffer)
 		return (NULL);
-	x = 0;
-	while (x <= end)
-		sub[x] = s[x++];
-	sub[x] = '\0';
-	return (sub);
+	i = read_file(&stash, buffer, fd);
+	free(buffer);
+	if (i >= 0)
+	{
+		line = extract(stash, i);
+		stash = ft_substr(stash, i + 1);
+		return (line);
+	}
+	if (i == -2)
+		return (NULL);
+	return (eof(&stash));
 }
