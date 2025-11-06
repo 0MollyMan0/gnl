@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anfouger <anfouger@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/04 09:41:39 by anfouger          #+#    #+#             */
-/*   Updated: 2025/11/05 15:13:42 by anfouger         ###   ########.fr       */
+/*   Created: 2025/11/06 14:25:19 by anfouger          #+#    #+#             */
+/*   Updated: 2025/11/06 14:25:19 by anfouger         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static char	*extract(char *s, int end)
 {
-	int	x;
+	int		x;
 	char	*sub;
 
-	if (!s)
+	if (!s || end == 0)
 		return (NULL);
 	sub = malloc(end + 2);
 	if (!sub)
@@ -33,33 +33,39 @@ static char	*extract(char *s, int end)
 	sub[x] = '\0';
 	return (sub);
 }
-static int read_file(char **stash, char *buffer, int fd)
+
+static int	read_file(char **stash, char *buffer, int fd)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (ft_strchr_i(*stash, '\n') == -1 && i > 0)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
 		if (i < 0)
-			return (-2);
+			return (i);
 		buffer[i] = '\0';
 		*stash = ft_strjoin(*stash, buffer);
 	}
-	if ((i = ft_strchr_i(*stash, '\n')) >= 0)
+	if (ft_strchr_i(*stash, '\n') >= 0)
+	{
+		i = ft_strchr_i(*stash, '\n');
 		return (i);
-	return (-1);
+	}
+	return (i);
 }
-static char	*eof(char **stash)
-{
-	char *line;
-	
-	if (!*stash)
-		return NULL;
-	line = *stash;
-	*stash = NULL;
-	return (line);
-}
+
+// static char	*eof(char **stash)
+// {
+// 	char	*line;
+
+// 	if (!*stash)
+// 		return (NULL);
+// 	line = *stash;
+// 	*stash = NULL;
+// 	return (line);
+// }
+
 char	*get_next_line(int fd)
 {
 	static char	*stash;
@@ -80,7 +86,9 @@ char	*get_next_line(int fd)
 		stash = ft_substr(stash, i + 1);
 		return (line);
 	}
-	if (i == -2)
-		return (NULL);
-	return (eof(&stash));
+	// if (i == -2)
+	// 	return (NULL);
+	// if (i == -1)
+	// 	return (stash);
+	return (NULL);
 }

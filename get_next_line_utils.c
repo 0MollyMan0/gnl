@@ -14,8 +14,9 @@
 
 int	ft_strlen(char *s)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!s)
 		return (0);
 	while (s[i])
@@ -25,8 +26,9 @@ int	ft_strlen(char *s)
 
 int	ft_strchr_i(char *s, char c)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!s)
 		return (-1);
 	while (s[i])
@@ -41,9 +43,11 @@ int	ft_strchr_i(char *s, char c)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
-	int		i = 0;
-	int		j = 0;
+	int		i;
+	int		j;
 
+	i = 0;
+	j = 0;
 	if (!s2)
 		return (s1);
 	if (!s1)
@@ -57,11 +61,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!new)
 		return (NULL);
 	while (s1[i])
-    {
+	{
 		new[i] = s1[i];
 		i++;
-    }
-    while (s2[j])
+	}
+	while (s2[j])
 		new[i++] = s2[j++];
 	new[i] = '\0';
 	free(s1);
@@ -71,8 +75,9 @@ char	*ft_strjoin(char *s1, char *s2)
 char	*ft_substr(char *s, int start)
 {
 	char	*sub;
-	int		i = 0;
+	int		i;
 
+	i = 0;
 	if (!s)
 		return (NULL);
 	sub = malloc(ft_strlen(s) - start + 1);
