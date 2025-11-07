@@ -1,3 +1,6 @@
-1. Faire une fonction pour read qui renvoie un truc quand eof, erreur ou find
-2. Faire une fonction qui extract
-3. Faire une fonction qui degage
+1
+2
+3
+4
+5
+6

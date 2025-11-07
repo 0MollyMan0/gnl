@@ -60,11 +60,9 @@ char	*ft_strjoin(char *s1, char *s2)
 	new = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!new)
 		return (NULL);
-	while (s1[i])
-	{
-		new[i] = s1[i];
-		i++;
-	}
+	while (s1[j])
+		new[i++] = s1[j++];
+	j = 0;
 	while (s2[j])
 		new[i++] = s2[j++];
 	new[i] = '\0';

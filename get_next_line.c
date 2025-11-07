@@ -17,7 +17,7 @@ static char	*extract(char *s, int end)
 	int		x;
 	char	*sub;
 
-	if (!s || end == 0)
+	if (!s || s[0] == '\0')
 		return (NULL);
 	sub = malloc(end + 2);
 	if (!sub)
@@ -42,7 +42,7 @@ static int	read_file(char **stash, char *buffer, int fd)
 	while (ft_strchr_i(*stash, '\n') == -1 && i > 0)
 	{
 		i = read(fd, buffer, BUFFER_SIZE);
-		if (i < 0)
+		if (i <= 0)
 			return (i);
 		buffer[i] = '\0';
 		*stash = ft_strjoin(*stash, buffer);
@@ -54,17 +54,6 @@ static int	read_file(char **stash, char *buffer, int fd)
 	}
 	return (i);
 }
-
-// static char	*eof(char **stash)
-// {
-// 	char	*line;
-
-// 	if (!*stash)
-// 		return (NULL);
-// 	line = *stash;
-// 	*stash = NULL;
-// 	return (line);
-// }
 
 char	*get_next_line(int fd)
 {
@@ -86,9 +75,5 @@ char	*get_next_line(int fd)
 		stash = ft_substr(stash, i + 1);
 		return (line);
 	}
-	// if (i == -2)
-	// 	return (NULL);
-	// if (i == -1)
-	// 	return (stash);
 	return (NULL);
 }

@@ -25,15 +25,15 @@ int main(void)
     }
     close(fd1);
 
-    printf("\n---- Reading file2 ----\n");
-    line = get_next_line(fd2);
-    while (line)
-    {
-        printf("%s", line);
-        free(line);
-        line = get_next_line(fd2);
-    }
-    close(fd2);
+    // printf("\n---- Reading file2 ----\n");
+    // line = get_next_line(fd2);
+    // while (line)
+    // {
+    //     printf("%s", line);
+    //     free(line);
+    //     line = get_next_line(fd2);
+    // }
+    // close(fd2);
 
     return 0;
 }
