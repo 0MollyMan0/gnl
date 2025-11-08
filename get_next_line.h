@@ -10,6 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef GET_NEXT_LINE
+#define GET_NEXT_LINE
+
 #include <stdlib.h>
 #include <unistd.h>
 
@@ -18,3 +21,5 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, int start);
 int		ft_strchr_i(char *s, char c);
 int		ft_strlen(char *s);
+
+#endif
