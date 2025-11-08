@@ -64,11 +64,7 @@ static char	*ft_minijoin(char *s1, char *s2)
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
 	if (!s2)
 		return (s1);
 	if (!s1)
@@ -90,6 +86,11 @@ char	*ft_substr(char *s, int start)
 	i = 0;
 	if (!s)
 		return (NULL);
+	if (start >= ft_strlen(s))
+	{
+		free(s);
+		return (NULL);
+	}
 	sub = malloc(ft_strlen(s) - start + 1);
 	if (!sub)
 		return (NULL);
