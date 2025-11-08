@@ -58,6 +58,7 @@ static char	*ft_minijoin(char *s1, char *s2)
 		new[i++] = s2[j++];
 	new[i] = '\0';
 	free(s1);
+	s1 = NULL;
 	return (new);
 }
 
@@ -101,5 +102,6 @@ char	*ft_substr(char *s, int start)
 	}
 	sub[i] = '\0';
 	free(s);
+	s = NULL;
 	return (sub);
 }
